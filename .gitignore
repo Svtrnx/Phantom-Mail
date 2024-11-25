@@ -1,0 +1,14 @@
+env/
+.env
+versions/
+.vscode/
+__pycache__/
+node_modules/
+.dockerignore
+Dockerfile
+docker-compose
+*.yml
+alembic.ini
+package-lock.json
+package.json
+*.css
