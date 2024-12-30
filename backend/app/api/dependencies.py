@@ -1,18 +1,16 @@
 from typing import Annotated
 from redis.asyncio import Redis
 from fastapi import Depends
-from backend.app.api.redis.connection import redis_pool, init_redis_pool
-
-
-
-async def get_redis() -> Redis:
-    """
-    Get Redis object.
-    If it is not initialized, it will be initialized.
-    """
-    if redis_pool is None:
-        await init_redis_pool()
-    return redis_pool
+from backend.app.core.security import get_current_user
+from backend.app.core.database.postgres import AsyncSession, get_db
+from backend.app.core.security import get_redis
 
 # Get redis connection
 RedisDep = Annotated[Redis, Depends(get_redis)]
+
+# Get user 
+CurrentUserDep = Annotated[str, Depends(get_current_user)]
+
+# Session dep
+SessionDep = Annotated[AsyncSession, Depends(get_db)]
+
