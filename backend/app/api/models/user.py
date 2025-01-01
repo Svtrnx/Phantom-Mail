@@ -11,7 +11,6 @@ class Base(DeclarativeBase):
 class User(Base):
 	__tablename__ = "users"
 	id = mapped_column(BigInteger, primary_key=True)
-	# token = mapped_column(Text(255), nullable=False)
 	email = mapped_column(String(64), nullable=False)
-	password = mapped_column(String(64), nullable=False)
+	password = mapped_column(String(256), nullable=False)
 	created_at = mapped_column(DateTime(timezone=True), server_default=func.now(timezone.utc))

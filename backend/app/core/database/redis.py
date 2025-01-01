@@ -18,3 +18,12 @@ async def init_redis_pool():
                 max_connections=settings.REDIS_MAX_CONNECTIONS,
                 decode_responses=False 
             )
+
+async def get_redis() -> Redis:
+    """
+    Get Redis object.
+    If it is not initialized, it will be initialized.
+    """
+    if redis_pool is None:
+        await init_redis_pool()
+    return redis_pool

@@ -10,7 +10,8 @@ class Settings(BaseSettings):
     AUTH_COOKIE_NAME: str
     ALGORITHM: str
 
-    SECRET_KEY: str = secrets.token_urlsafe(32)
+    SECRET_KEY: str
+    FERNET_SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
     INCLUDE_SWAGGER_SCHEMA: bool
