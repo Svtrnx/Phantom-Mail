@@ -2,12 +2,12 @@ from fastapi import APIRouter, Request, HTTPException
 from backend.app.core.limiter import limiter
 from backend.app.api.dependencies import CurrentUserDep
 from backend.app.core.logger import logger
-from backend.app.api.schemas.user import UserData
+from backend.app.api.schemas.auth import AuthData
 
 user = APIRouter()
 
 
-@user.get("/me", response_model=UserData)
+@user.get("/me", response_model=AuthData)
 @limiter.limit("2/second")
 async def me_func(request: Request, current_user: CurrentUserDep):
     try:

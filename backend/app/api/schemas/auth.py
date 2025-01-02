@@ -7,4 +7,4 @@ class Token(BaseModel):
     
 class AuthData(BaseModel):
 	email: EmailStr | None = Field(max_length=64)
-	password: str = Field(max_length=256)
+	password: str = Field(min_length=5, max_length=256)
