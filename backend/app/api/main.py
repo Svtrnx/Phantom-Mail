@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
-from backend.app.api.routes.auth import auth
-from backend.app.api.routes.user import user
-from backend.app.api.routes.mail import mail
+from app.api.routes.auth import auth
+from app.api.routes.user import user
+from app.api.routes.mail import mail
 
 api_router = APIRouter()
 api_router.include_router(auth, prefix="/auth", tags=["auth"])

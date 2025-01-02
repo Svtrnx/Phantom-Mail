@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Request, Depends, HTTPException
-from backend.app.core.logger import logger
-from backend.app.core.limiter import limiter
-from backend.app.api.modules.mail_api import get_email_address_domain, get_messages, get_message, delete_message, patch_message
-from backend.app.api.dependencies import SessionDep, CurrentUserDep
-from backend.app.api.schemas.mail import DomainData, MessagesData, MessageData, MessagesFormData, MessageFormData
+from app.core.logger import logger
+from app.core.limiter import limiter
+from app.api.modules.mail_api import get_email_address_domain, get_messages, get_message, delete_message, patch_message
+from app.api.dependencies import SessionDep, CurrentUserDep
+from app.api.schemas.mail import DomainData, MessagesData, MessageData, MessagesFormData, MessageFormData
 
 mail = APIRouter()
 

@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Request, HTTPException
-from backend.app.core.limiter import limiter
-from backend.app.api.dependencies import CurrentUserDep
-from backend.app.core.logger import logger
-from backend.app.api.schemas.auth import AuthData
+from app.core.limiter import limiter
+from app.api.dependencies import CurrentUserDep
+from app.core.logger import logger
+from app.api.schemas.auth import AuthData
 
 user = APIRouter()
 

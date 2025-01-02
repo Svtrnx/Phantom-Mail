@@ -1,5 +1,5 @@
 from redis.asyncio import Redis
-from backend.app.core.config import settings
+from app.core.config import settings
 import asyncio
 
 redis_pool: Redis | None = None

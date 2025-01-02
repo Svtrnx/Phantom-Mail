@@ -1,5 +1,5 @@
 import httpx
-from backend.app.core.logger import logger
+from app.core.logger import logger
 
 API_URL = "https://api.mail.tm"
 

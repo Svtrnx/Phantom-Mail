@@ -2,8 +2,8 @@ from typing import Union
 from datetime import datetime, timedelta
 from cryptography.fernet import Fernet
 import jwt
-from backend.app.core.cookie import OAuth2PasswordBearerWithCookie
-from backend.app.core.config import settings
+from app.core.cookie import OAuth2PasswordBearerWithCookie
+from app.core.config import settings
 
 
 oauth2_scheme = OAuth2PasswordBearerWithCookie(tokenUrl="authentication")

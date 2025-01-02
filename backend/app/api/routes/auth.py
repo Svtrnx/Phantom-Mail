@@ -1,15 +1,15 @@
 from fastapi import APIRouter, Request, HTTPException, status, Depends, Response
 from fastapi.responses import RedirectResponse
 from datetime import timedelta
-from backend.app.api.dependencies import SessionDep
-from backend.app.core.limiter import limiter
-from backend.app.api.schemas.auth import Token, AuthData
-from backend.app.core.config import settings
-from backend.app.core.security import create_access_token, decrypt_password
-from backend.app.api.services.database.postgres.user import create_user, get_user
-from backend.app.api.models.user import User
-from backend.app.core.logger import logger
-from backend.app.api.modules.mail_api import get_token
+from app.api.dependencies import SessionDep
+from app.core.limiter import limiter
+from app.api.schemas.auth import Token, AuthData
+from app.core.config import settings
+from app.core.security import create_access_token, decrypt_password
+from app.api.services.database.postgres.user import create_user, get_user
+from app.api.models.user import User
+from app.core.logger import logger
+from app.api.modules.mail_api import get_token
 
 auth = APIRouter()
 

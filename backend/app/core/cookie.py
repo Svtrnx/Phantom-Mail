@@ -3,7 +3,7 @@ from fastapi.security import OAuth2
 from fastapi.openapi.models import OAuthFlows as OAuthFlowsModel
 from fastapi import Request, HTTPException
 from fastapi.security.utils import get_authorization_scheme_param
-from backend.app.core.config import settings
+from app.core.config import settings
 
 class OAuth2PasswordBearerWithCookie(OAuth2):
     def __init__(

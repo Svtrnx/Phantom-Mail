@@ -1,11 +1,11 @@
 from sqlalchemy.future import select
 from typing import AsyncGenerator
 from fastapi import HTTPException
-from backend.app.api.schemas.auth import AuthData
-from backend.app.api.models.user import User
-from backend.app.core.logger import logger
-from backend.app.core.security import encrypt_password, decrypt_password
-from backend.app.api.modules.mail_api import create_email
+from app.api.schemas.auth import AuthData
+from app.api.models.user import User
+from app.core.logger import logger
+from app.core.security import encrypt_password, decrypt_password
+from app.api.modules.mail_api import create_email
 
 async def create_user(
     session: AsyncGenerator,

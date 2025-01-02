@@ -2,12 +2,12 @@ from typing import Annotated, AsyncGenerator
 from redis.asyncio import Redis
 from fastapi import Depends, HTTPException, Request
 import jwt
-from backend.app.core.security import oauth2_scheme
-from backend.app.core.database.postgres import AsyncSession, get_db
-from backend.app.core.database.redis import get_redis
-from backend.app.api.models.user import User
-from backend.app.api.services.database.postgres.user import get_user_by_email
-from backend.app.core.config import settings
+from app.core.security import oauth2_scheme
+from app.core.database.postgres import AsyncSession, get_db
+from app.core.database.redis import get_redis
+from app.api.models.user import User
+from app.api.services.database.postgres.user import get_user_by_email
+from app.core.config import settings
 
 
 async def get_current_user(request: Request, session: AsyncGenerator = Depends(get_db), token: str = Depends(oauth2_scheme)):

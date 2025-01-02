@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from backend.app.core.config import settings
-from backend.app.api.main import api_router
+from app.core.config import settings
+from app.api.main import api_router
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import TypeAdapter
 

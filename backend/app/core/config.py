@@ -4,7 +4,7 @@ from pydantic_core import MultiHostUrl # type: ignore
 import secrets
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file="./backend/.env", extra="ignore")
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     API_V1_STR: str = "/api/v1"
     PROJECT_NAME: str = "Phantom Mail"
     AUTH_COOKIE_NAME: str
