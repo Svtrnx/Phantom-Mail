@@ -9,7 +9,7 @@ app = FastAPI(title=settings.PROJECT_NAME)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://phantom-mail.vercel.app"],
+    allow_origins=["https://phantom-mail.vercel.app", "https://phantom-mail.vercel.app/signin", "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

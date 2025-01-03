@@ -12,3 +12,4 @@ alembic.ini
 package-lock.json
 package.json
 *.css
+.vercel
