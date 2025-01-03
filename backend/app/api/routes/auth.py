@@ -75,10 +75,10 @@ async def signin_func(request: Request, session: SessionDep, user_data: AuthData
         )
         response = RedirectResponse(url=f'{settings.API_V1_STR}/auth/index', status_code=status.HTTP_302_FOUND)
         response.set_cookie(key=str(settings.AUTH_COOKIE_NAME),value=f"Bearer {access_token}", samesite='strict', httponly=True,
-                        secure=True, domain='.vercel', max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60)
+                        secure=True, max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60)
         
         response.set_cookie(key="email_token", value=email_token, samesite='strict', httponly=True,
-                        secure=True, domain='.vercel', max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60)
+                        secure=True, max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60)
         return response
     else:
         raise HTTPException(403, "Authentication is required")
