@@ -8,7 +8,7 @@ user = APIRouter()
 
 
 @user.get("/me", response_model=AuthData)
-@limiter.limit("2/second")
+@limiter.limit("4/second")
 async def me_func(request: Request, current_user: CurrentUserDep):
     try:
         logger.info(f"token: {current_user.email}")

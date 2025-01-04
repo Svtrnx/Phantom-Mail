@@ -23,7 +23,7 @@ class OAuth2PasswordBearerWithCookie(OAuth2):
         scheme, param = get_authorization_scheme_param(authorization)
         if not authorization or scheme.lower() != "bearer":
             if self.auto_error:
-              raise HTTPException(status_code=303, detail="Not authorized" )
+              raise HTTPException(status_code=403, detail="Not authorized" )
             else:
                 return None
         return param

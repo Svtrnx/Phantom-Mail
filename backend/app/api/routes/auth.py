@@ -27,7 +27,7 @@ async def authentication_func(request: Request, session: SessionDep, user_data: 
         
         data = await create_user(session=session, user_data=user_data)
         if not isinstance(data, dict):
-            raise HTTPException(400, "Bad Request")
+            raise HTTPException(400, "User Already Exists")
         
         user = data['user']
         email_token = data['email_data']['token']
@@ -89,6 +89,7 @@ async def signin_func(request: Request, session: SessionDep, user_data: AuthData
 async def logout(request: Request, response: Response):
     try:
         response.delete_cookie(key=settings.AUTH_COOKIE_NAME)
+        response.delete_cookie(key="email_token")
         return {'status': 'success'}
     except Exception as e:
         logger.error(f'logout error: {e}')

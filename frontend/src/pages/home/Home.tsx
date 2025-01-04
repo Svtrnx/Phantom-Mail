@@ -1,11 +1,12 @@
+import React from "react";
+import { NavbarComponent } from "../../components/Navbar";
 
-
-function Home() {
+const Home: React.FC<UserData> = ({email, password}) => {
 
 	return (
 		<>
 		<div>
-			HOME PAGE
+			<NavbarComponent email={email} password={password}/>
 		</div>
 		</>
 	)

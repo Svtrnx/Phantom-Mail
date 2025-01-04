@@ -1,16 +1,44 @@
 "use client"
-import { useState } from "react";
-import {Form, Input, Button} from "@nextui-org/react";
-// import { signIn } from "../../services/auth/AuthService";
+import { useState, useEffect } from "react";
+import {Form, Input, Button, Code, Spinner} from "@nextui-org/react";
+import { getDomain } from "../../services/mailApi/MailApiService";
+import { signUp } from "../../services/auth/AuthService";
+import { showToast  } from "../../components/ToastContext";
+import { useNavigate } from 'react-router-dom';
+import { MailLogo } from "../../components/utils";
+import { delay } from "../../components/utils";
+import './styles.css';
 
-
-function SignUp() {
+const SignUp = () => {
 	
 	const [password, setPassword] = useState("");
-
+	const [email, setEmail] = useState("");
+	const [domain, setDomain] = useState("");
+	const [loading, setLoading] = useState(true);
+	const [requestProcessing, setRequestProcessing] = useState(false);
 
 	const errors: Array<string> = [];
 
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		const fetchDomain = async () => {
+			try {
+				const response = await getDomain();
+				console.log('response33:', response); 
+				if (response && response.status == 'success') {
+					setDomain(response.message.domain);
+					setLoading(false);
+				}
+			}
+			catch (error: any) {
+				console.log(error.response.data);
+			}
+		};
+
+		fetchDomain();
+
+	},[])
 
 	if (password.length < 4) {
 		errors.push("Password must be 4 characters or more.");
@@ -22,61 +50,95 @@ function SignUp() {
 		errors.push("Password must include at least 1 symbol.");
 	}
 
-	const onSubmit = (e: any) => {
+	async function onSubmit (e: any) {
+		setRequestProcessing(true);
 		e.preventDefault();
 	
 		const data = Object.fromEntries(new FormData(e.currentTarget));
 	
 		console.log(data.email)
-		// try {
-		// 	const response = signIn(typeof data.email === 'string' ? data.email : "", typeof data.password === 'string' ? data.password : "");
-		// 	console.log('Sign-in successful:', response);
-		//   } catch (err: any) {
-		// 	console.log('Error during sign-in:', err);
-		//   }
+		const response = await signUp(typeof data.email === 'string' ? data.email + "@" + domain : "", typeof data.password === 'string' ? data.password : "");
+		console.log('signUp:', response);
+		if (response.status == 'success') {
+			showToast('Success!', "Successfully authenticated!", 'success')
+			await delay(1500);
+			window.location.reload();
+
+		}
+		else {
+			console.log(response.message)
+			if (typeof(response.message) == 'object') {
+				response.message = response.message[0].msg
+			}
+			showToast('Error!', `${response.message}!`, 'danger')
+		}
+		setRequestProcessing(false);
 
 	};
 
 
 	return (
 		<>
-		<div style={{placeItems: 'center'}}>
-			<h2>Phantom Mail</h2>
-			<h3>Sign Up</h3>
-			<Form className="w-full max-w-xs" style={{marginInline: 'auto'}} validationBehavior="native" onSubmit={onSubmit}>
-				<Input
-					isRequired
-					errorMessage="Please enter a valid email"
-					label="Email"
-					labelPlacement="outside"
-					name="email"
-					placeholder="Enter your email"
-					type="email"
-					variant="bordered"
-				/>
-				<Input
-					errorMessage={() => (
-						<ul>
-						{errors.map((error, i) => (
-							<li key={i}>{error}</li>
-						))}
-						</ul>
-					)}
-					isRequired
-					isInvalid={errors.length > 0}
-					label="Password"
-					labelPlacement="outside"
-					name="password"
-					placeholder="Enter your password"
-					value={password}
-					variant="bordered"
-					onValueChange={setPassword}
+		{loading ? 
+		<div
+			style={{
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+				height: '100vh',
+			}}
+		>
+			<Spinner color="secondary" label="Loading..." labelColor="secondary" />
+		</div>	
+		:
+			<div style={{placeItems: 'center'}}>
+				<h2 className="flex">{<MailLogo/>}<h2 className="pt-2">Phantom Mail</h2></h2>
+				<h3>Sign Up</h3>
+				<Code className="mb-5" color="secondary">{email}@{domain}</Code>
+				<Form className="w-full max-w-xs" style={{marginInline: 'auto'}} validationBehavior="native" onSubmit={onSubmit}>
+					<Input
+						isRequired
+						errorMessage="Please enter a valid email"
+						label="Email"
+						labelPlacement="outside"
+						name="email"
+						placeholder="Enter your email"
+						// type="email"
+						variant="bordered"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+
 					/>
-				<Button style={{width: "100%"}} type="submit" variant="bordered">
-					Submit
+					<Input
+						errorMessage={() => (
+							<ul>
+							{errors.map((error, i) => (
+								<li key={i}>{error}</li>
+							))}
+							</ul>
+						)}
+						isRequired
+						isInvalid={errors.length > 0}
+						label="Password"
+						labelPlacement="outside"
+						name="password"
+						placeholder="Enter your password"
+						value={password}
+						variant="bordered"
+						onValueChange={setPassword}
+						/>
+					<Button isLoading={requestProcessing} style={{width: "100%"}} type="submit" variant="ghost">
+						Submit
+					</Button>
+				</Form>
+				<Button isDisabled={requestProcessing} onPress={() => {navigate('/signin');}} style={{width: "100%", height: 30, marginTop: 15}} variant="ghost">
+					Sign In
 				</Button>
-			</Form>
-		</div>
+				{/* <div className="sigup_redirect">
+					<h2><a href={""}>Sign In</a></h2>
+				</div> */}
+			</div>
+		} 
 		</>
 	)
 }
