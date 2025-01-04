@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const API_URL = 'http://localhost:8000/api/v1';
-const API_URL = 'https://api-phantom-mail.vercel.app/api/v1';
+const API_URL = 'https://splendid-paulita-kenzo-md-f258b668.koyeb.app//api/v1';
 
 
 export async function signIn(email: string, password: string) {
