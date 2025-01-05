@@ -24,7 +24,25 @@ declare global {
 		intro: string;
 		subject: string;
 		seen: boolean;
+		id: string;
 	};
+
+	type MessageProps =  {
+		date: string;
+		name: string;
+		address: string;
+		to: string;
+	}
+
+	interface ModalMessageProps {
+		isOpen: boolean;
+		onClose: () => void;
+		html: string[];
+		createdAt: string;
+		name: string;
+		address: string;
+		to: string;
+	}
 }
 
 export {};

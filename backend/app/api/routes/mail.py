@@ -39,7 +39,8 @@ async def get_messages_func(request: Request):
 @limiter.limit("2/second")
 async def get_message_func(request: Request, form_data: MessageFormData = Depends(MessageFormData)):
     try:
-        message = await get_message(form_data.token, form_data.message_id)
+        token = request.cookies.get('email_token')
+        message = await get_message(token, form_data.message_id)
         return {
             "message": message
         }
@@ -52,7 +53,8 @@ async def get_message_func(request: Request, form_data: MessageFormData = Depend
 @limiter.limit("2/second")
 async def delete_message_func(request: Request, form_data: MessageFormData = Depends(MessageFormData)):
     try:
-        response = await delete_message(form_data.token, form_data.message_id)
+        token = request.cookies.get('email_token')
+        response = await delete_message(token, form_data.message_id)
         if response == False:
             raise HTTPException(400, "Bad Request")
         
@@ -67,7 +69,8 @@ async def delete_message_func(request: Request, form_data: MessageFormData = Dep
 @limiter.limit("2/second")
 async def patch_message_func(request: Request, form_data: MessageFormData = Depends(MessageFormData)):
     try:
-        response = await patch_message(form_data.token, form_data.message_id)
+        token = request.cookies.get('email_token')
+        response = await patch_message(token, form_data.message_id)
         if response == False:
             raise HTTPException(400, "Bad Request")
         

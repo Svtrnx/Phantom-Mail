@@ -3,11 +3,15 @@ import { NavbarComponent } from "../../components/Navbar";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { useIsMobile } from "../../hooks/useIsMobileHook";
 import { getMessages } from "../../services/mailApi/MailApiService";
-import { Spinner, Avatar } from "@nextui-org/react";
+import { getMessage } from "../../services/mailApi/MailApiService";
+import { Spinner, Avatar, useDisclosure } from "@nextui-org/react";
 import { motion } from 'framer-motion';
 
 import { MailIcon } from "../../assets/MailIcon";
 import { ArrowsIcon } from "../../assets/ArrowsIcon";
+import ModalMessage from "../../components/ModalMessage";
+import { patchMessage } from "../../services/mailApi/MailApiService";
+
 import "./styles.css";
 
 
@@ -16,28 +20,58 @@ const Home: React.FC<UserDataHome> = ({email, password, lottieFile}) => {
 	const [loading, setLoading] = React.useState(true);
 	const [isEmpty, setIsEmpty] = React.useState(true);
 	const [messages, setMessages] = React.useState<Message[]>([]);
+	const [html, setHtml] = React.useState<string[]>(['']);
+	const [messageInfo, setMessageInfo] = React.useState<MessageProps>({
+			date: '2025-01-01T02:48:42+00:00', 
+			name: '',
+			address: '',
+			to: '',
+		});
+
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	useEffect(() => {
-
 		async function fetchMessages() {
 			const response = await getMessages();
-			console.log('getMessages:', response.message.messages[0]);
 			if (response.status == 'success') {
 				if (response.message.messages.length > 0) {
 					setIsEmpty(false);
-					console.log(response.message)
 					setMessages(response.message.messages);
 				}
 			}
 			setLoading(false);
 		}
 		fetchMessages()
-		const intervalGetTasks = setInterval(fetchMessages, 10000);
-        return () => {
-            clearInterval(intervalGetTasks);
-        };
+		// const intervalGetTasks = setInterval(fetchMessages, 10000);
+        // return () => {
+        //     clearInterval(intervalGetTasks);
+        // };
 
 	}, [])
+
+	async function fetchMessage(message_id: string) {
+		const response = await getMessage(message_id);
+		console.log('getMessage fetchMessage:', response.message.message);
+		if (response.status == 'success') {
+			setHtml(response.message.message.html);
+			setMessageInfo({
+				date: response.message.message.createdAt,
+				name: response.message.message.from.name,
+				address: response.message.message.from.address,
+				to: email,
+			});
+			
+		}
+		onOpen();
+		seenMessage(message_id);
+	}
+
+
+
+	async function seenMessage(message_id: string) {
+		const response = await patchMessage(message_id);
+		console.log('patchMessage:', response.message);
+	}
 
 	return (
 		<>
@@ -74,14 +108,14 @@ const Home: React.FC<UserDataHome> = ({email, password, lottieFile}) => {
 							<>
 							{messages.map((message, index) => (
 								<>
-								<div key={index} className="home-message-wrapper">
+								<div key={index} className="home-message-wrapper" onClick={() => {fetchMessage(message.id);}}>
 									<div style={{marginLeft: 15}}>
 										<Avatar
 											size="sm"
 											isBordered
 											as="button"
-											style={{opacity: 0.8}}
-											className={`transition-transform ${message.seen ? '' : 'ring-22'}`}
+											style={{opacity: 0.8, width: '30px', height: "30px"}}
+											className={`w-0 transition-transform ${message.seen ? '' : 'ring-22'}`}
 											name={message.from.name}
 										/>
 									</div>
@@ -114,6 +148,7 @@ const Home: React.FC<UserDataHome> = ({email, password, lottieFile}) => {
 				</div>
 			</div>
 		</div>
+		<ModalMessage isOpen={isOpen} onClose={onClose} html={html} createdAt={messageInfo.date} name={messageInfo.name} address={messageInfo.address} to={messageInfo.to} />
 		</>
 	)
 }

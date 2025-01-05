@@ -114,7 +114,8 @@ export const NavbarComponent: React.FC<UserData> = ({email, password}) => {
 						size="sm"
 						isBordered
 						as="button"
-						className="transition-transform"
+						style={{width: '30px', height: "30px"}}
+						className="w-0 transition-transform"
 						name={email}
 					/>
 					</DropdownTrigger>

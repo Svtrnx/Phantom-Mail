@@ -13,5 +13,4 @@ class MessagesFormData(BaseModel):
     token: str = Field(max_length=512)
 
 class MessageFormData(BaseModel):
-    token: str = Field(max_length=512)
     message_id: str = Field(max_length=64)
