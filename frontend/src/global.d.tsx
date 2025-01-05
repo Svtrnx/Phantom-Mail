@@ -37,6 +37,7 @@ declare global {
 	interface ModalMessageProps {
 		isOpen: boolean;
 		onClose: () => void;
+		onOpenChange: () => void;
 		html: string[];
 		createdAt: string;
 		name: string;

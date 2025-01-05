@@ -46,14 +46,12 @@ export const NavbarComponent: React.FC<UserData> = ({email, password}) => {
 
 	async function logoutFunc() {
 		const response = await logout();
-		console.log('logout:', response);
 		if (response.status == 'success') {
 			showToast('Success!', "Successfully logged out!", 'success')
 			await delay(2000);
 			window.location.reload();
 		}
 		else {
-			console.log(response.message)
 			if (typeof(response.message) == 'object') {
 				response.message = response.message[0].msg
 				
@@ -69,8 +67,6 @@ export const NavbarComponent: React.FC<UserData> = ({email, password}) => {
 		"API",
 		"Privacy",
 	];
-
-	console.log(password)
 
   	return (
 		<>
@@ -93,7 +89,7 @@ export const NavbarComponent: React.FC<UserData> = ({email, password}) => {
 				</Link>
 				</NavbarItem>
 				<NavbarItem>
-				<Link color="foreground" href="#">
+				<Link color="foreground" href='https://splendid-paulita-kenzo-md-f258b668.koyeb.app/docs'>
 					API
 				</Link>
 				</NavbarItem>
@@ -144,7 +140,13 @@ export const NavbarComponent: React.FC<UserData> = ({email, password}) => {
 						? "primary" 
 						: "foreground"
 					}
-					href={item === "Email Service" ? "/home" : `/${item.toLowerCase()}`}
+					href={
+						item === "API"
+						  ? 'https://splendid-paulita-kenzo-md-f258b668.koyeb.app/docs'
+						  : item === "Email Service"
+						  ? "/home"
+						  : `/${item.toLowerCase()}`
+					}
 					size="lg"
 					>
 					{item}

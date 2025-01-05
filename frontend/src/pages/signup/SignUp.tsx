@@ -25,7 +25,6 @@ const SignUp = () => {
 		const fetchDomain = async () => {
 			try {
 				const response = await getDomain();
-				console.log('response33:', response); 
 				if (response && response.status == 'success') {
 					setDomain(response.message.domain);
 					setLoading(false);
@@ -56,9 +55,7 @@ const SignUp = () => {
 	
 		const data = Object.fromEntries(new FormData(e.currentTarget));
 	
-		console.log(data.email)
 		const response = await signUp(typeof data.email === 'string' ? data.email + "@" + domain : "", typeof data.password === 'string' ? data.password : "");
-		console.log('signUp:', response);
 		if (response.status == 'success') {
 			showToast('Success!', "Successfully authenticated!", 'success')
 			await delay(1500);
@@ -66,7 +63,6 @@ const SignUp = () => {
 
 		}
 		else {
-			console.log(response.message)
 			if (typeof(response.message) == 'object') {
 				response.message = response.message[0].msg
 			}

@@ -18,16 +18,13 @@ const SignIn = () => {
 	
 		const data = Object.fromEntries(new FormData(e.currentTarget));
 	
-		console.log(data.email)
 		const response = await signIn(typeof data.email === 'string' ? data.email.toLowerCase() : "", typeof data.password === 'string' ? data.password : "");
-		console.log('signIn:', response);
 		if (response.status == 'success') {
 			showToast('Success!', "Successfully signed in", 'success')
 			await delay(1500);
 			window.location.reload();
 		}
 		else {
-			console.log(response.message)
 			if (typeof(response.message) == 'object') {
 				response.message = response.message[0].msg
 				
@@ -41,7 +38,7 @@ const SignIn = () => {
 
 	return (
 		<>
-		<div style={{justifyItems: 'center'}}>
+		<div style={{justifyItems: 'center', backgroundColor: ''}}>
 			<div style={{display: 'grid', justifyItems: 'center'}}>
 				<h2 className="flex">{<MailLogo/>}<h2 className="pt-2">Phantom Mail</h2></h2>
 				<h3>Sign In</h3>

@@ -28,7 +28,7 @@ const Home: React.FC<UserDataHome> = ({email, password, lottieFile}) => {
 			to: '',
 		});
 
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
 
 	useEffect(() => {
 		async function fetchMessages() {
@@ -42,16 +42,15 @@ const Home: React.FC<UserDataHome> = ({email, password, lottieFile}) => {
 			setLoading(false);
 		}
 		fetchMessages()
-		// const intervalGetTasks = setInterval(fetchMessages, 10000);
-        // return () => {
-        //     clearInterval(intervalGetTasks);
-        // };
+		const intervalGetTasks = setInterval(fetchMessages, 10000);
+        return () => {
+            clearInterval(intervalGetTasks);
+        };
 
 	}, [])
 
 	async function fetchMessage(message_id: string) {
 		const response = await getMessage(message_id);
-		console.log('getMessage fetchMessage:', response.message.message);
 		if (response.status == 'success') {
 			setHtml(response.message.message.html);
 			setMessageInfo({
@@ -69,8 +68,7 @@ const Home: React.FC<UserDataHome> = ({email, password, lottieFile}) => {
 
 
 	async function seenMessage(message_id: string) {
-		const response = await patchMessage(message_id);
-		console.log('patchMessage:', response.message);
+		await patchMessage(message_id);
 	}
 
 	return (
@@ -148,7 +146,7 @@ const Home: React.FC<UserDataHome> = ({email, password, lottieFile}) => {
 				</div>
 			</div>
 		</div>
-		<ModalMessage isOpen={isOpen} onClose={onClose} html={html} createdAt={messageInfo.date} name={messageInfo.name} address={messageInfo.address} to={messageInfo.to} />
+		<ModalMessage isOpen={isOpen} onClose={onClose} onOpenChange={onOpenChange} html={html} createdAt={messageInfo.date} name={messageInfo.name} address={messageInfo.address} to={messageInfo.to} />
 		</>
 	)
 }

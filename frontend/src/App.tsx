@@ -7,7 +7,7 @@ import Home from './pages/home/Home';
 import { getMe } from './services/user/User';
 import {Spinner} from "@nextui-org/react";
 import Privacy from './pages/privacy/Privacy';
-// import {NextUIProvider} from "@nextui-org/react";
+import {NextUIProvider} from "@nextui-org/react";
 import { useLottieFile } from './components/LottieUrl';
 import './App.css';
 
@@ -24,7 +24,6 @@ function App() {
         const fetchUserData = async () => {
             try {
                 const response = await getMe();
-                console.log('getMe:', response); 
                 if (response && response.email && response.password) {
                     setUserData(response);
                     setIsAuthenticated(true);
@@ -42,6 +41,7 @@ function App() {
     
     return (
         <>
+        <NextUIProvider style={{height: "100%"}} className='bg-background'>
             {loading ? (
                 <div
                     style={{
@@ -67,6 +67,7 @@ function App() {
                 </Routes>
             )}
             <ToastManager />
+        </NextUIProvider>
         </>
     );
     
