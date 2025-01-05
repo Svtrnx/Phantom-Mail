@@ -12,7 +12,19 @@ declare global {
 		email: string;
 		password: string;
 	}
-	
+
+	interface UserDataHome {
+		email: string;
+		password: string;
+		lottieFile: string;
+	}
+
+	type Message = {
+		from: { name: string, address: string };
+		intro: string;
+		subject: string;
+		seen: boolean;
+	};
 }
 
 export {};

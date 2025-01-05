@@ -22,5 +22,24 @@ export async function getDomain() {
 		return {status: 'error', message: error.response.data.detail};
 	}
 }
+ 
+
+export async function getMessages() {
+	try {
+		const response = await axios.get(
+			`${API_URL}/mail/messages`, {
+				params: {},
+				headers: {
+				'Content-Type': 'application/json',
+				},
+				withCredentials: true, 
+			}
+		);
+		return { status: 'success', message: response.data };
+	} catch (error: any) {
+		console.log(error.response.data.detail);
+		return {status: 'error', message: error.response.data.detail};
+	}
+}
   
   

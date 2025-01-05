@@ -7,7 +7,8 @@ import Home from './pages/home/Home';
 import { getMe } from './services/user/User';
 import {Spinner} from "@nextui-org/react";
 import Privacy from './pages/privacy/Privacy';
-
+// import {NextUIProvider} from "@nextui-org/react";
+import { useLottieFile } from './components/LottieUrl';
 import './App.css';
 
 
@@ -15,8 +16,9 @@ function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState({email: '', password: ''});
-
-    // const navigate = useNavigate();
+    
+    const lottieFile = useLottieFile("https://lottie.host/963cf71d-1fb3-49a1-87a8-5494a545b152/bSRPCIlzmB.lottie");
+    
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -53,7 +55,7 @@ function App() {
                 </div>
             ) : isAuthenticated ? (
                 <Routes>
-                    <Route path="/home" element={<Home email={userData.email} password={userData.password} />} />
+                    <Route path="/home" element={<Home email={userData.email} password={userData.password} lottieFile={lottieFile} />} />
                     <Route path="/privacy" element={<Privacy email={userData.email} password={userData.password} />} />
                     <Route path="*" element={<Navigate to="/home" replace />} />
                 </Routes>

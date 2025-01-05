@@ -92,9 +92,11 @@ const SignUp = () => {
 		</div>	
 		:
 			<div style={{placeItems: 'center'}}>
-				<h2 className="flex">{<MailLogo/>}<h2 className="pt-2">Phantom Mail</h2></h2>
-				<h3>Sign Up</h3>
-				<Code className="mb-5" color="secondary">{email}@{domain}</Code>
+				<div style={{display: 'grid', justifyItems: 'center'}}>
+					<h2 className="flex">{<MailLogo/>}<h2 className="pt-2">Phantom Mail</h2></h2>
+					<h3>Sign Up</h3>
+					<Code className="mb-5" color="secondary">{email}@{domain}</Code>
+				</div>
 				<Form className="w-full max-w-xs" style={{marginInline: 'auto'}} validationBehavior="native" onSubmit={onSubmit}>
 					<Input
 						isRequired
@@ -106,7 +108,7 @@ const SignUp = () => {
 						// type="email"
 						variant="bordered"
 						value={email}
-						onChange={(e) => setEmail(e.target.value)}
+						onChange={(e) => setEmail(e.target.value.toLowerCase())}
 
 					/>
 					<Input
@@ -131,9 +133,11 @@ const SignUp = () => {
 						Submit
 					</Button>
 				</Form>
-				<Button isDisabled={requestProcessing} onPress={() => {navigate('/signin');}} style={{width: "100%", height: 30, marginTop: 15}} variant="ghost">
-					Sign In
-				</Button>
+				<div style={{marginInline: 'auto', width: '100px'}}>
+					<Button isDisabled={requestProcessing} onPress={() => {navigate('/signin');}} style={{width: "100%", height: 30, marginTop: 15}} variant="ghost">
+						Sign In
+					</Button>
+				</div>
 				{/* <div className="sigup_redirect">
 					<h2><a href={""}>Sign In</a></h2>
 				</div> */}

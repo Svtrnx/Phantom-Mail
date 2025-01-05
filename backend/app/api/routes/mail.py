@@ -23,9 +23,10 @@ async def get_domain_func(request: Request):
 
 @mail.get("/messages", response_model=MessagesData)
 @limiter.limit("2/second")
-async def get_messages_func(request: Request, form_data: MessagesFormData = Depends(MessagesFormData)):
+async def get_messages_func(request: Request):
     try:
-        messages = await get_messages(form_data.token)
+        token = request.cookies.get('email_token')
+        messages = await get_messages(token)
         return {
             "messages": messages
         }

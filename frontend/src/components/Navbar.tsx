@@ -74,7 +74,7 @@ export const NavbarComponent: React.FC<UserData> = ({email, password}) => {
 
   	return (
 		<>
-		<Navbar onMenuOpenChange={setIsMenuOpen}>
+		<Navbar className="bg-background/20" isBlurred={true} shouldHideOnScroll onMenuOpenChange={setIsMenuOpen}>
 			<NavbarContent>
 				<NavbarMenuToggle
 				aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -111,6 +111,7 @@ export const NavbarComponent: React.FC<UserData> = ({email, password}) => {
 				<Dropdown placement="bottom-end">
 					<DropdownTrigger>
 					<Avatar
+						size="sm"
 						isBordered
 						as="button"
 						className="transition-transform"
