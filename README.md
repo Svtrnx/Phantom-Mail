@@ -33,6 +33,6 @@
 ![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2Fany_text--blue?logo=tailwindcss&logoColor=%2306B6D4&label=TailwindCSS&color=%2306B6D4)
 ![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2Fany_text--blue?logo=railway&logoColor=%23BA478F&label=Railway&color=%23BA478F&link=railway.com)
 
-![Static Badge](https://img.shields.io/github/watchers/Svtrnx/async_talk.svg)
-![Static Badge](https://img.shields.io/github/last-commit/Svtrnx/async_talk.svg)
-![Static Badge](https://img.shields.io/github/commit-activity/m/Svtrnx/async_talk.svg)
+![Static Badge](https://img.shields.io/github/watchers/Svtrnx/Phantom-Mail.svg)
+![Static Badge](https://img.shields.io/github/last-commit/Svtrnx/Phantom-Mail.svg)
+![Static Badge](https://img.shields.io/github/commit-activity/m/Svtrnx/Phantom-Mail.svg)
